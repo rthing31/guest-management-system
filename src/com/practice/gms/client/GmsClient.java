@@ -16,6 +16,7 @@ import com.practice.gms.utilities.ScannerUtil;
  */
 public class GmsClient {
 	//just to practice git push action
+	//Aashman changed a line
 	private static Printer printer = new Printer();
 	private static ScannerUtil scanner = new ScannerUtil();
 	private static GmsServiceImpl gmsServiceImpl = new GmsServiceImpl();
