@@ -22,18 +22,20 @@ public class GmsServiceImpl implements GmsService {
 	public String deleteGuestByID(int guestID) {
 		String message = "";
 		int databaseSize = database.getGuestList().size();
-		String deletedGuestName = "";
+		String deletedGuestName = null;
 		for (int i = 0; i < databaseSize; i++) {
-			System.out.println(database.getGuestList().get(i).getGuestID());
 			if (database.getGuestList().get(i).getGuestID() == guestID) {
-				database.getGuestList().remove(i);
-				deletedGuestName = database.getGuestList().get(i).getGuestName();
+				deletedGuestName = database.getGuestList().get(i).getGuestName(); 
+				/*line 29 was below line 33, which was illogical 
+				 * because you can't retrieve or get already deleted guest's name. 
+				 */
+				database.getGuestList().remove(i);		
 			}
 		}
-		if (deletedGuestName != null || deletedGuestName != "") {
+		if (deletedGuestName != null) { //deletedGuestName was initialized to null, so only one condition in if.
 			message = "A guest named " + deletedGuestName + " was successfully deleted!!";
 		} else {
-			message = "No guest was found for that ID";
+			message = "No guest was found for that ID: "+guestID;
 		}
 		return message;
 	}
