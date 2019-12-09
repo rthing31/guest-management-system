@@ -67,6 +67,9 @@ public class GmsClient {
 				System.out.println(enteredGuest);
 				break;
 			case 2:
+				int guestID = scanner.getInt("Please enter the guest ID you want to delete.");
+				String msg = gmsServiceImpl.deleteGuestByID(guestID);
+				System.out.println(msg);
 				break;
 			case 3:
 				break;

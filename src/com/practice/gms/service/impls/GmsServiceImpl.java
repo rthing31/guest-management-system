@@ -24,6 +24,7 @@ public class GmsServiceImpl implements GmsService {
 		int databaseSize = database.getGuestList().size();
 		String deletedGuestName = "";
 		for (int i = 0; i < databaseSize; i++) {
+			System.out.println(database.getGuestList().get(i).getGuestID());
 			if (database.getGuestList().get(i).getGuestID() == guestID) {
 				database.getGuestList().remove(i);
 				deletedGuestName = database.getGuestList().get(i).getGuestName();
