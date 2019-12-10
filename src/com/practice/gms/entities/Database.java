@@ -13,7 +13,4 @@ public class Database {
 	public void setGuestList(List<Guest> guestList) {
 		this.guestList = guestList;
 	} 
-	
-	
-
 }
