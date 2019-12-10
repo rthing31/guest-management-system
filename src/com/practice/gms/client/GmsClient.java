@@ -44,23 +44,16 @@ public class GmsClient {
 				long phone = scanner.getLong("Please enter a valid number.");
 				guest.setGuestPhoneNumber(phone);
 				short roomNumber;
-				List<Guest> guestList = gmsServiceImpl.getAllGuests();
 				boolean flag2 = true;
 				do {
-					roomNumber = scanner.getShort("Please enter a room number.");
-					if (guestList == null || guestList.size() == 0) {
-						flag2 = false;
+					roomNumber = scanner.getShort("Please enter a room between 1 to 100.");
+					boolean result = gmsServiceImpl.validateRoomNumber(gmsServiceImpl.getAllGuests(), roomNumber);
+					System.out.println(result);
+					if(result == true) {
 						guest.setGuestRoomNumber(roomNumber);
-					} else {
-						for (int i = 0; i < guestList.size(); i++) {
-							if (guestList.get(i).getGuestPhoneNumber() == roomNumber) {
-								System.out.println(" Sorry: The room is already booked.");
-							} else {
-								flag2 = false;
-								guest.setGuestRoomNumber(roomNumber);
-							}
-						}
+						flag2 = false;
 					}
+					else System.out.println("The room is already booked.");
 				} while (flag2);
 
 				Guest enteredGuest = gmsServiceImpl.enterGuest(guest);
@@ -72,6 +65,11 @@ public class GmsClient {
 				System.out.println(msg);
 				break;
 			case 3:
+				String guestName = scanner.getString("Please enter guest name to search details.");
+				Guest guestFound = gmsServiceImpl.searchGuestDetailsByName(guestName);
+				if(guestFound!=null)
+				System.out.println("Guest found: \n"+guestFound);
+				else System.out.println("Guest not found");
 				break;
 			case 4:
 				List<Guest> guestList2 = gmsServiceImpl.getAllGuests();
