@@ -16,15 +16,15 @@ import com.practice.gms.utilities.ScannerUtil;
  * 
  */
 public class GmsClient {
-	//just to practice git push action
-	//Aashman changed a line
+	// just to practice git push action
+	// Aashman changed a line
 	private static Printer printer = new Printer();
 	private static ScannerUtil scanner = new ScannerUtil();
 	private static GmsServiceImpl gmsServiceImpl = new GmsServiceImpl();
 
 	public static void main(String[] args) {
-		
-		//System.out.println(gmsServiceImpl.getAllGuests());
+
+		// System.out.println(gmsServiceImpl.getAllGuests());
 
 		System.out.println("Welcome to Guest Management System");
 		boolean flag = true;
@@ -50,11 +50,11 @@ public class GmsClient {
 					roomNumber = scanner.getShort("Please enter a room between 1 to 100.");
 					boolean result = gmsServiceImpl.validateRoomNumber(gmsServiceImpl.getAllGuests(), roomNumber);
 					System.out.println(result);
-					if(result == true) {
+					if (result == true) {
 						guest.setGuestRoomNumber(roomNumber);
 						flag2 = false;
-					}
-					else System.out.println("The room is already booked.");
+					} else
+						System.out.println("The room is already booked.");
 				} while (flag2);
 
 				Guest enteredGuest = gmsServiceImpl.enterGuest(guest);
@@ -68,20 +68,37 @@ public class GmsClient {
 			case 3:
 				String guestName = scanner.getString("Please enter guest name to search details.");
 				Guest guestFound = gmsServiceImpl.searchGuestDetailsByName(guestName);
-				if(guestFound!=null)
-				System.out.println("Guest found: \n"+guestFound);
-				else System.out.println("Guest not found");
+				if (guestFound != null)
+					System.out.println("Guest found: \n" + guestFound);
+				else
+					System.out.println("Guest not found");
 				break;
 			case 4:
 				List<Guest> guestList2 = gmsServiceImpl.getAllGuests();
 				printer.printList(guestList2);
-				
+
 				break;
 			case 5:
 				Map<Integer, Guest> sortedGuests = gmsServiceImpl.sortGuestsByName();
-				sortedGuests.forEach((k, v) -> System.out.println(v) );
+				sortedGuests.forEach((k, v) -> System.out.println(v));
 				break;
 			case 6:
+
+				long phoneNumber = scanner.getLong("Enter phone number to update the room number");
+				boolean check = gmsServiceImpl.validatePhoneNumber(phoneNumber);
+				if (check == false) {
+					System.out.println("Phone number doesn't exist");
+				} else {
+					short roomNumber2 = scanner.getShort("Please enter your new room number");
+					boolean check2 = gmsServiceImpl.validateRoomNumber(gmsServiceImpl.getAllGuests(), roomNumber2);
+					if (check2) {
+						Guest guest2 = gmsServiceImpl.updateRoomNumberByPhoneNumber(phoneNumber, roomNumber2);
+						System.out.println(guest2);
+					} else
+						System.out.println("Room number is invalid");
+
+				}
+
 				break;
 			case 7:
 				flag = false;

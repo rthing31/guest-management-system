@@ -29,17 +29,18 @@ public class GmsServiceImpl implements GmsService {
 		String deletedGuestName = null;
 		for (int i = 0; i < databaseSize; i++) {
 			if (database.getGuestList().get(i).getGuestID() == guestID) {
-				deletedGuestName = database.getGuestList().get(i).getGuestName(); 
-				/*line 29 was below line 33, which was illogical 
-				 * because you can't retrieve or get already deleted guest's name. 
+				deletedGuestName = database.getGuestList().get(i).getGuestName();
+				/*
+				 * line 29 was below line 33, which was illogical because you can't retrieve or
+				 * get already deleted guest's name.
 				 */
-				database.getGuestList().remove(i);		
+				database.getGuestList().remove(i);
 			}
 		}
-		if (deletedGuestName != null) { //deletedGuestName was initialized to null, so only one condition in if.
+		if (deletedGuestName != null) { // deletedGuestName was initialized to null, so only one condition in if.
 			message = "A guest named " + deletedGuestName + " was successfully deleted!!";
 		} else {
-			message = "No guest was found for that ID: "+guestID;
+			message = "No guest was found for that ID: " + guestID;
 		}
 		return message;
 	}
@@ -47,15 +48,15 @@ public class GmsServiceImpl implements GmsService {
 	@Override
 	public Guest searchGuestDetailsByName(String guestName) {
 		Guest guestFound = null;
-		if(database.getGuestList().size()!=0) {
-			for(int i = 0; i < database.getGuestList().size(); i++) {
-				if(database.getGuestList().get(i).getGuestName().equalsIgnoreCase(guestName)) {
+		if (database.getGuestList().size() != 0) {
+			for (int i = 0; i < database.getGuestList().size(); i++) {
+				if (database.getGuestList().get(i).getGuestName().equalsIgnoreCase(guestName)) {
 					guestFound = database.getGuestList().get(i);
-					//System.out.println(guestFound);
+					// System.out.println(guestFound);
 				}
 			}
 		}
-		
+
 		return guestFound;
 	}
 
@@ -68,41 +69,64 @@ public class GmsServiceImpl implements GmsService {
 	@Override
 	public Map<Integer, Guest> sortGuestsByName() {
 		List<Guest> guestList = database.getGuestList();
-		
+
 		Comparator comparator = new Comparator<Guest>() {
 			@Override
-			public int compare(Guest o1, Guest o2) {		
+			public int compare(Guest o1, Guest o2) {
 				return o1.getGuestName().compareToIgnoreCase(o2.getGuestName());
 			}
 		};
-		
+
 		Collections.sort(guestList, comparator);
-		
+
 		Map<Integer, Guest> guestHashMap = new HashMap<Integer, Guest>();
-		for(int i = 0; i < guestList.size(); i++) {
+		for (int i = 0; i < guestList.size(); i++) {
 			guestHashMap.put(i, guestList.get(i));
 		}
 		return guestHashMap;
 	}
 
 	@Override
-	public Guest updateRoomNumberByPhoneNumber(long guestPhoneNumber) {
-		// TODO Auto-generated method stub
-		return null;
+	public Guest updateRoomNumberByPhoneNumber(long guestPhoneNumber, short roomNumber) {
+
+		List<Guest> guestList = database.getGuestList();
+		Guest guest = new Guest();
+
+		for (int i = 0; i < guestList.size(); i++) {
+			if (guestPhoneNumber == guestList.get(i).getGuestPhoneNumber()) {
+				guestList.get(i).setGuestRoomNumber(roomNumber);
+				guest = guestList.get(i);
+
+			}
+
+		}
+		return guest;
 	}
 
 	@Override
 	public boolean validateRoomNumber(List<Guest> allGuests, short roomNumber) {
 		boolean flag = false;
-		if(allGuests.size()==0) flag = true;
-		if(roomNumber>0 && roomNumber < 100) {
-			for(int i = 0; i < allGuests.size(); i++) {
-				if(allGuests.get(i).getGuestRoomNumber()!=roomNumber) {
+		if (allGuests.size() == 0)
+			flag = true;
+		if (roomNumber > 0 && roomNumber < 100) {
+			for (int i = 0; i < allGuests.size(); i++) {
+				if (allGuests.get(i).getGuestRoomNumber() != roomNumber) {
 					flag = true;
 				}
 			}
 		}
 		return flag;
+	}
+
+	@Override
+	public boolean validatePhoneNumber(long phoneNumber) {
+		List<Guest> guestList = database.getGuestList();
+		for (int i = 0; i < guestList.size(); i++) {
+				if(guestList.get(i).getGuestPhoneNumber() == phoneNumber) {
+					return true;
+				}
+		}
+		return false;
 	}
 
 }
