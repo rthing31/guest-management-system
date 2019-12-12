@@ -42,8 +42,17 @@ public class GmsServiceImpl implements GmsService {
 
 	@Override
 	public Guest searchGuestDetailsByName(String guestName) {
-		// TODO Auto-generated method stub
-		return null;
+		Guest guestFound = null;
+		if(database.getGuestList().size()!=0) {
+			for(int i = 0; i < database.getGuestList().size(); i++) {
+				if(database.getGuestList().get(i).getGuestName().equalsIgnoreCase(guestName)) {
+					guestFound = database.getGuestList().get(i);
+					//System.out.println(guestFound);
+				}
+			}
+		}
+		
+		return guestFound;
 	}
 
 	@Override
@@ -62,6 +71,20 @@ public class GmsServiceImpl implements GmsService {
 	public Guest updateRoomNumberByPhoneNumber(long guestPhoneNumber) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean validateRoomNumber(List<Guest> allGuests, short roomNumber) {
+		boolean flag = false;
+		if(allGuests.size()==0) flag = true;
+		if(roomNumber>0 && roomNumber < 100) {
+			for(int i = 0; i < allGuests.size(); i++) {
+				if(allGuests.get(i).getGuestRoomNumber()!=roomNumber) {
+					flag = true;
+				}
+			}
+		}
+		return flag;
 	}
 
 }

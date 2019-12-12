@@ -11,4 +11,5 @@ public interface GmsService {
 	List<Guest> getAllGuests();
 	List<Guest> sortGuestsByName();
 	Guest updateRoomNumberByPhoneNumber(long guestPhoneNumber);
-}
+	boolean validateRoomNumber(List<Guest> allGuests, short roomNumber);
+	}
