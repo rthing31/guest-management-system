@@ -1,6 +1,10 @@
 package com.practice.gms.service.impls;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.practice.gms.entities.Database;
 import com.practice.gms.entities.Guest;
@@ -62,9 +66,23 @@ public class GmsServiceImpl implements GmsService {
 	}
 
 	@Override
-	public List<Guest> sortGuestsByName() {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<Integer, Guest> sortGuestsByName() {
+		List<Guest> guestList = database.getGuestList();
+		
+		Comparator comparator = new Comparator<Guest>() {
+			@Override
+			public int compare(Guest o1, Guest o2) {		
+				return o1.getGuestName().compareToIgnoreCase(o2.getGuestName());
+			}
+		};
+		
+		Collections.sort(guestList, comparator);
+		
+		Map<Integer, Guest> guestHashMap = new HashMap<Integer, Guest>();
+		for(int i = 0; i < guestList.size(); i++) {
+			guestHashMap.put(i, guestList.get(i));
+		}
+		return guestHashMap;
 	}
 
 	@Override

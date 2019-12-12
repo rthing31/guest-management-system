@@ -1,6 +1,7 @@
 package com.practice.gms.client;
 
 import java.util.List;
+import java.util.Map;
 
 import com.practice.gms.entities.Guest;
 import com.practice.gms.service.impls.GmsServiceImpl;
@@ -77,6 +78,8 @@ public class GmsClient {
 				
 				break;
 			case 5:
+				Map<Integer, Guest> sortedGuests = gmsServiceImpl.sortGuestsByName();
+				sortedGuests.forEach((k, v) -> System.out.println(v) );
 				break;
 			case 6:
 				break;

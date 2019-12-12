@@ -1,6 +1,7 @@
 package com.practice.gms.service.interfaces;
 
 import java.util.List;
+import java.util.Map;
 
 import com.practice.gms.entities.Guest;
 
@@ -9,7 +10,8 @@ public interface GmsService {
 	String deleteGuestByID(int guestID);
 	Guest searchGuestDetailsByName(String guestName);
 	List<Guest> getAllGuests();
-	List<Guest> sortGuestsByName();
+	//map is a collection interface, that stores data in key value pair system
+	Map<Integer,Guest> sortGuestsByName();
 	Guest updateRoomNumberByPhoneNumber(long guestPhoneNumber);
 	boolean validateRoomNumber(List<Guest> allGuests, short roomNumber);
     //Comment
