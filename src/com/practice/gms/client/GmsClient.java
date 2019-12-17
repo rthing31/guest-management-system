@@ -102,8 +102,7 @@ public class GmsClient {
 				break;
 			case 7:
 				flag = false;
-			default:
-				System.out.println("Please enter a number from 1 to 7.");
+			default: //we deleted this line to show git push
 			}
 		} while (flag);
 

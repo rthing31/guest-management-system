@@ -10,7 +10,6 @@ public interface GmsService {
 	String deleteGuestByID(int guestID);
 	Guest searchGuestDetailsByName(String guestName);
 	List<Guest> getAllGuests();
-	//map is a collection interface, that stores data in key value pair system
 	Map<Integer,Guest> sortGuestsByName();
 	Guest updateRoomNumberByPhoneNumber(long guestPhoneNumber,short roomNumber);
 	boolean validateRoomNumber(List<Guest> allGuests, short roomNumber);
